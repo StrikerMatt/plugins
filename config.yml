@@ -1,0 +1,864 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf760
+{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;}
+{\colortbl;\red255\green255\blue255;\red53\green53\blue53;}
+{\*\expandedcolortbl;;\cssrgb\c27059\c27059\c27059;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab560
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf2 # This is a template config file\
+# define your parameter and its value like:\
+ErrorMessage: "&c [TE] : Some error occured."\
+HelpMessages:\
+  banner:\
+    msg: "=== &e[&aTokenEnchant Commands List (%version%)&e] &r==="\
+  help:\
+    msg: "/tokenenchant or /tokenenchant help : display this help menu."\
+  reload:\
+    msg: "/tokenenchant reload : reloads config file."\
+    permission: "tokenenchant.reload"\
+  set:\
+    msg: "/tokenenchant set <name> <amount> : sets <name> <amount> tokens."\
+    permission: "tokenenchant.add"\
+  add:\
+    msg: "/tokenenchant add <name> <amount> : adds <name> <amount> tokens."\
+    permission: "tokenenchant.add"\
+  remove:\
+    msg: "/tokenenchant remove <name> <amount> : removes <name> <amount> tokens from <name>."\
+    permission: "tokenenchant.add"\
+  balance:\
+    msg: "/tokenenchant balance [name] : displays the token balance of yourself or [name]."\
+    permission: "tokenenchant.balance"\
+  withdraw:\
+    msg: "/tokenenchant withdraw <amount> : withdraws the specified amount of tokens from your account."\
+    permission: "tokenenchant.withdraw"\
+  expexchange:\
+    msg: "/tokenenchant expexchange : exchanges the current EXP values to tokens."\
+    permission: "tokenenchant.expexchange"\
+  givetokens:\
+    msg: "/tokenenchant givetokens <name> <amount> : gives <name> <amount> tokens."\
+    permission: "tokenenchant.expexchange"\
+  enchant:\
+    msg: "/tokenenchant enchant <name> <enchant> [level] [cost:xxx] : enchants the item <name> is holding with <enchant>."\
+    permission: "tokenenchant.enchant"\
+  repair:\
+    msg: "/tokenenchant repair <name> : repairs all the enchantments of the item <name> is holding."\
+    permission: "tokenenchant.repair"\
+  refund:\
+    msg: "/tokenenchant refund <name> <enchant> : refund <name> for the enchantment <enchant>."\
+    permission: "tokenenchant.refund"\
+  givebp:\
+    msg: "/tokenenchant givebp <name> <row> [bpname] cost:xxx : gives <name> a backpacked named [bpname] of size <row> costing xxx."\
+    permission: "tokenenchant.givebp"\
+  baltop:\
+    msg: "/tokenenchant baltop : list top token balance."\
+    permission: "tokenenchant.baltop"\
+\
+#\
+Messages:\
+  SelfBalance: "&a[TE] You currently have &b%token% &atokens."\
+  NoOthersBalance: "&c[TE] You are not allowed to check other's balance."\
+  NoTargetPlayer: "&a[TE] A palyer needs to be specified."\
+  PlayerOffline: "&a[TE] &e%player% &ais currently offline."\
+  PlayerNotFound: "&a[TE] &e%player% &awas not found."\
+  Balance: "&a[TE] &e%player% &acurrently has &b%token% &atokens."\
+  SetSuccess: "&a[TE] You have set &e%token% &atokens to &e%player%&a."\
+  AddSuccess: "&a[TE] You have added &e%token% &atokens to &e%player%&a."\
+  Received: "&a[TE] You have received &e%token% &atokens."\
+  Deducted: "&a[TE] &e%token% &atokens have been deducted."\
+  RemoveSuccess: "&a[TE] You have removed &e%token% &atokens from &e%player%&a."\
+  NotEnoughTokens: "&c[TE] You do not have enough tokens. You need at least %needed% tokens."\
+  NotEnoughTokenItems: "&c[TE] You do not have enough token items. You need at least %needed% token item(s)."\
+  NotEnoughExpLevels: "&c[TE] You do not have enough EXP levels. You need at least %exp_needed% EXP level(s)."\
+  WithdrawSuccess: "&a[TE] You have withdrawn &e%tokens% &atokens."\
+  InventoryFull: "&a[TE] Inventory is full! &e%tokens% &atokens could not be withdrawn!"\
+  ExchangeSuccess: "&a[TE] &e+ %token% &atoken(s) has been added to your account."\
+  NeedToHoldItem: "&c[TE] You need to hold an item to enchant."\
+  CannotEnchantThis: "&c[TE] You cannot enchant the item you're holding."\
+  CannotRepairThis: "&c[TE] You cannot repair the item you're holding."\
+  EnchantSuccess:\
+    msg: "&a[TE] &e+ %addedlevel% &d%enchant% &aenchantment level. %token% tokens have been deducted."\
+    sound: LEVEL_UP\
+  RepairSuccess: "&a[TE] &eThe item repaired. %token% tokens have been deducted."\
+  MaxedOut: "&c[TE] Your item has already maxed out on &e%enchant% &cenchantment."\
+  NoPermission: "&c[TE] You don't have a permission for this!"\
+  NoSuchEnchant: "&c[TE-Admin] That (&e%enchant%&c) is not a valid enchant. Please specify the enchant listed in the config file."\
+  TokenItemsGiven: "&a[TE] &e%tokenitems% &atoken items were given to &e%player%&a."\
+  NoPriceSet: "&a[TE] Price is not set for this."\
+  CommandSuccess: "&a[TE] &e%command%&a was executed, and it cost &e%token% tokens."\
+  NeedPermission: "&a[TE] You need a permission &etokenenchant.alias.command.%command% &ato use this command &e%command%&a."\
+  CannotRefundThis: "&c[TE] We cannot refun the item you're holding."\
+  RefundSuccess: "&a[TE] &e- 1 &d%enchant% &aenchantment level. %token% tokens have been refunded."\
+  BackPackGiven: "&a[TE] %player% has given a backpack and %token% toknes has been deducted."\
+  VKBackPackNotFound: "&a[TE] VKBackPack plugin was not found."\
+  TokenBalTopHeader: "&a[TE] Token Balance Top - page:%page%/%total%-"\
+  TokenBalTopList: "%rank%. %name%, %balance%"\
+  TokenBalTopTypeMore: "&a[TE] Type &c/te baltop %next% &ato read the next page."\
+  OnlyOneAtTheTime: "&c[TE] Only one item can be enchanted at the time."\
+  CannotAddMoreEnchant: "&c[TE] You cannot add anymore than &e%max%&c custom enchantments!"\
+  CannotUseMoreEnchant:\
+    msg: "&c[TE] You cannot use an item with enchants more than &e%max%&c."\
+    sound: ITEM_BREAK\
+\
+#\
+# if UseToken is true, the plugin use its own tokens, if it's false\
+# it uses economy thorugh Vault\
+UseToken: true\
+\
+# if this option is true, the cost of enchant is dynamically calculated\
+# and displayed at where \{ench_cost\} is specified on the sign.\
+UseDynamicSignUpdate: true\
+\
+Currency: token # token, money, or (exp...not supported atm)\
+\
+\
+# formating of number\
+BeautifyNumber: false\
+MaxCharLength: 4;\
+# the folloiwngs are units of order.\
+OrderChars:\
+  - k\
+  - M\
+  - B\
+  - T\
+  - Q\
+  - P\
+  - E\
+  - Z\
+\
+\
+EnchantSign: "[&9Enchant&8]"\
+CostPlaceHolder: "\{ench_cost\}"\
+#\
+ExchangeSign: "[&9Exchange&8]"\
+ExchangeRate: 1\
+RatePlaceHolder: "\{ex_rate\}"\
+#\
+ExpExchangeSign: "[&9EXP Exch&8]"\
+ExpExchangeRate: 20\
+ExpRatePlaceHolder: "\{exp_rate\}"\
+#\
+WithdrawSign: "[&9Withdraw&8]"\
+#\
+RepairSign: "[&9Repair&8]"\
+RepairBase: 1\
+RepairDiscount: 0.05\
+RepairRatePlaceHolder: "\{rep_rate\}"\
+#\
+#\
+TokenItem: MAGMA_CREAM\
+TokenItemName: "&aTokenItem"\
+TokenItemLore: "&bHold it in your hand and\\n&bRight-Click to redeem &eTokens"\
+\
+#\
+# Enchantment lore prefix\
+EnchantmentLorePrefix: "&r&7"\
+\
+#\
+#\
+# option to force remove potion effects at the login\
+ForceRemovePotionAtJoin : true\
+#\
+\
+# option to use WorldGuard region\
+# Use WorldGuard's new block-break flag, otherwise, use canBuild check instead\
+UseWorldGuardNewFlag: true\
+\
+\
+# If UseRomanNumeral is true, arabic number will be converted into roman numeral.\
+UseRomanNumeral: true\
+# if PureRomanNumeral is true, 1 - 3998 will be converted to RomanNumeral\
+PureRomanNumeral: false\
+\
+# if CustomEnchantDisplay is true, you can use "alias:" feature for Enchants: section\
+# also it will convert enchantment.level.xxx into xxxx\
+CustomEnchantDisplay: false\
+\
+#\
+UseEnchantGlowForPotion: true\
+#\
+MaxEnchantLevel: 100\
+\
+#\
+UseEnchantmentTable: false\
+DefaultEnchantChance: 0.7\
+UseTokenEnchantSettingForVanillaEnchant: false\
+\
+\
+# if this option is true, TEBlockExplodeEvent will be handled by TokenEnchant\
+# if you want other plugin to handle TEBlockExplodeEvent, set it to false;\
+PickupTEExplodedBlocks: true\
+\
+# fly permission node\
+# if a player has the following permission node, his fly own't be turned off\
+FlyPermissionNode: "essentials.fly"\
+\
+#\
+TokenFormula:\
+    # Valid values are: LINEAR and EXPONENTIAL\
+    # If an invalid value is entered, this will reset to the default setting, which is LINEAR\
+    # CONSTANT:      price\
+    # LINEAR:      price + (level * price)\
+    # EXPONENTIAL: price + price * level ^ exponent\
+    # EXPONENTIAL2: price * 2 ^ (level - 1)\
+    Curve: Linear\
+\
+    Constant:\
+    Linear:\
+    Exponential:\
+        exponent: 1.80\
+\
+\
+# if this option is true, when you tried to enchant an item, which already has enchantment\
+# level, the excess enchantment level will be removed and set to the max level.\
+CapOverEnchant: false\
+\
+\
+# Refund related\
+AllowRefund: false\
+RefundRate: 0.8\
+\
+# default values\
+DefaultPotionDuration: 200\
+DefaultPotionAmplifier: 2\
+\
+# option to limit the number of custom enchants on an item.\
+# The number of max enchants can be specified with permission nodes.\
+# tokenenchant.multiple_enchants.x\
+# if the permission node does not exist, the default number will be applied\
+# tokenenchant.multiple_enchants.x : x should not exceed MaximumMaxNumberOfEnchants\
+# if AllowOverMaxEnchantUse is true, you can use the item which exceeds custom enchants\
+# but you will not be able to add more custom enchants.\
+ApplyMaxNumberOfEnchants: false\
+MaximumMaxNumberOfEnchants: 10\
+DefaultMaxNumberOfEnchants: 3\
+ExcludeVanilla: true\
+AllowOverMaxEnchantUse: true\
+\
+\
+# Friendly fire option\
+# it currently supports Factions plugin and mcMMO's party\
+# if FriendlyFire is set to "true", you cannot harm your faction members or mcMMO party member.\
+FriendlyFire_Faction: true\
+FriendlyFire_McMMO: true\
+\
+# Prevents self damaging initiating custom effect (default : true)\
+# if this option is set to true, when you damage yourself effects on your armors/toos won't be activated\
+# (cases like ender pearling, shooting yourself.... all damages are given but and effects won't be activated)\
+IgnoreSelfDamage: true\
+\
+#\
+# Command execution with token\
+# This format is from a plugin called Aliazes.\
+# default permission for each command te.command.<cmd>\
+# If you crate an alias "cmd:" as shown beloe, you need to give a permission\
+# node "tokenenchant.alias.command.cmd" to a player\
+#\
+#cmd:                 <-- The command.\
+#  price: 20          <-- The amount of toke a player needs to execute this command.\
+#  permission: <-- Permissions section, if this section is not defined, individual permission system will be used, e.g. "te.command.cmd"\
+#  - te.command.user    <-- For users, this permission should be added as default.\
+#  - te.command.mod     <-- For mods, this permission should be added as default. \
+#  - te.command.admin   <-- For admins, this permission should be added as default.     \
+#  alias:               <-- Additional aliases section. \
+#  - cmd2              <-- Additional aliases 1, can be as many as you want.\
+#  default:                   <-- Default meaning anything below will be ran for the player in all worlds.   \
+#  - "!te_rawmessage %p &aHello" <-- To Print this message.                                                     \
+#  - "@who"                   <-- Will run /who command as player.                                           \
+#  - "!give %p 1 32"          <-- Will run command as console to give player 32 stone.                       \
+#  - ">give %p 1 32"          <-- Will run command as op to give player 32 stone.\
+#  - if %# = 0 !te_rawmessage %p &aUse '&e/g <name&a' to check user's group.\
+#  - if %# = 1 >pex user %1 group list\
+#  world_nether:              <-- The world you wish commands below to be shown in.                          \
+#  - "!te_rawmessage %p &aHello, you are in the nether." <-- This message will only be seen if player is in the nether.\
+Commands:\
+    # example of giving slot 9 chestbackpack to a user (ChestBackpack plugin)\
+    # backpack9:\
+    #   permission:\
+    #    - my.permission.for.backpack9\
+    #   price: 30\
+    #   default:\
+    #     - "!pex user %p add chestbackpack.slots.9"\
+    # # example of giving slot 18 chestbackpack to a user (ChestBackpack plugin)\
+    # backpack18:\
+    #   permission:\
+    #     - my.permission.for.backpack18\
+    #   price: 60\
+    #   default:\
+    #     - "!pex user %p add chestbackpack.slots.18"\
+    # # example of allowing a player to set his prefix using PermissionsEx command.\
+    # setprefix:\
+    #   permission:\
+    #     - my.permission.for.setprefix\
+    #   price: 160\
+    #   default:\
+    #     - "!pex user %p prefix %1"\
+    # letmefly:\
+    #   permission:\
+    #     - my.permission.for.letmefly\
+    #   price: 160\
+    #   default:\
+    #     - ">fly"\
+#\
+# potion effects included in the default TE:\
+# Haste (Bukkit name: FAST_DIGGING)\
+# Speed (Bukkit name: SPEED)\
+# Nightvision (Bukkit name: NIGHT_VISION)\
+# Jump (Bukkit name: JUMP)\
+# Regeneration (Bukkit name: REGENERATION);\
+# FireResistance (Bukki name: FIRE_RESISTANCE)\
+# DamageResist (Bukkit name: DAMAGE_RESISTANCE\
+# Aqua (Bukkit name: WATER_BREATHING)\
+# Saturation (Bukkit name: SATURATION)\
+# HealthBoost (Bukkit name: HEALTH_BOOST)\
+# Strength (Bukkit name: INCREASE_DAMAGE)\
+# Blindness (Bukkit name: BLINDNESS)\
+# Confusion (Bukkit name: CONFUSION)\
+# Harm (aka Instant Damage, Bukkit name: HARM)\
+# Hunger (Bukkit name: HUNGER)\
+# Poison (Bukkit name: POISON)\
+# Slow (Bukkit name: SLOW)\
+# Weakness (Bukkit name: WEAKNESS)\
+# Wither (Bukkit name: WITHER)\
+# Molten (custom : attacker catches fire)\
+# Fly (custom effect : item holder can fly)\
+# Explosive : this is a custom effect, which will blow up surrounding blocks. It has an option of auto smelt. This Explosive effect works with MineResetLitePlus's mined block counting as well as Lucky Block feature!\
+# Excavation : this is a custom effect, It is just like Explosive but it will remove entire cuboid\
+# Sphered : this is a custom effect, It is just like Explosive but it will remove entire sphere\
+# BedrockBreaker (custom: allow you to break a bedrock block)\
+#\
+# You can set the duration to -1 to give infinite potion effects.\
+#\
+# You can set the occurrence\
+# random: randomly occur based on the level\
+# always: occur always.\
+# % : you can set the explicit % number as the maximum occurrence chance at the highest level of enchant.\
+#\
+Potions:\
+    Haste:\
+      alias: "SpeedDigging"     #You can use your own name for enchant using alias.\
+      duration: 200\
+      amplifier: 2\
+      price: 10\
+      max: 10\
+      # You can set the occurrence\
+      # random: randomly occur based on the level\
+      # always: occur always.\
+      occurrence: random\
+      enchant_chance: 0.8\
+    Speed:\
+      price: 10\
+      max: 10\
+      # You can set the occurrence\
+      # random: randomly occur based on the level\
+      # always: occur always.\
+      occurrence: random\
+    Nightvision:\
+      price: 10\
+      max: 10\
+      # You can set the occurrence\
+      # random: randomly occur based on the level\
+      # always: occur always.\
+      occurrence: random\
+    Jump:\
+      price: 10\
+      max: 10\
+      # You can set the occurrence\
+      # random: randomly occur based on the level\
+      # always: occur always.\
+      occurrence: random\
+    Harm:\
+      price: 10\
+      max: 1\
+      #\
+      # level_multiplier * the level of potion will be used as\
+      # the level of Harm potion.\
+      level_multiplier: 1\
+      # You can set the occurrence\
+      # random: randomly occur based on the level\
+      # always: occur always.\
+      occurrence: always\
+    Regeneration:\
+      price: 10\
+      max: 2\
+      duration_multiplier: 1800\
+      #\
+      # You can set the occurrence\
+      # random: randomly occur based on the level\
+      # always: occur always.\
+      occurrence: always\
+    FireProtection:\
+      price: 10\
+      max: 1\
+      duration_multiplier: 1800\
+      occurrence: always\
+    Strength:\
+      price: 10\
+      max: 3\
+      duration_multiplier: -1\
+      occurrence: always\
+    Aqua:\
+      price: 10\
+      max: 1\
+      duration_multiplier: -1\
+      occurrence: always\
+    Saturation:\
+      price: 10\
+      max: 3\
+      duration_multiplier: -1\
+      occurrence: always\
+    HealthBoost:\
+      price: 10\
+      max: 3\
+      duration_multiplier: 1200\
+      occurrence: always\
+\
+    Explosive:\
+      price: 10\
+      max: 5  # the level of Explosive will be used as the radius of explosion.\
+      radius: 3  # radius\
+      # you can set the multiplier to calculate the total amount of blocks to be exploded\
+      # level 150 and multipler 2 = 150 x 2 blocks within the radius 3 will be exploded\
+      multiplier: 2\
+      # you can nominate the world, which prevents explosive\
+      invalid_in_world:\
+        - plotworld\
+      # you can turn on automatic pickup.\
+      pickup: true\
+      # you can turn on automatic smelting\
+      smelt: true\
+      # you can turn on/off explostion sound/visual effects\
+      effect: true\
+      # you can turn on/off explostion sound effects\
+      sound: true\
+      # You can set the occurrence of explosion.\
+      # random: randomly occur based on the level\
+      # always: explosion occur always.\
+      occurrence: always\
+      use_explode_event: true # use efficient explode event.\
+    Excavation:\
+      alias: "&4Excavation"\
+      price: 10\
+      # the level of Explosive will be used as the radius of excavation.\
+      max: 10\
+      # you can nominate the world, which prevents explosive\
+      invalid_in_world:\
+        - plotworld\
+      pickup: true\
+      smelt: true\
+      effect: true\
+      sound: true\
+      occurrence: random\
+      # You can set the list of blocks exempt from explosiont.\
+      # use this list to avoid your crates being exploded.\
+      # AIR and BEDROCK are already exempted by defalt\
+      exemptions:\
+        - ENDER_CHEST\
+        - GLOWSTONE\
+        - LADDER\
+        - STONE_PLATE\
+        - "STAINED_GLASS:11"\
+\'a0 \'a0 Sphered:\
+\'a0 \'a0 \'a0 price: 10\
+\'a0 \'a0  \'a0 max: 3\
+\'a0 \'a0 \'a0 invalid_in_world:\
+\'a0 \'a0 \'a0 \'a0 - plotworld\
+\'a0 \'a0 \'a0 pickup: true\
+\'a0 \'a0 \'a0 smelt: true\
+\'a0 \'a0 \'a0 effect: true\
+\'a0 \'a0 \'a0 sound: true\
+\'a0 \'a0 \'a0 occurrence: always\
+\'a0 \'a0 \'a0 exemptions:\
+\'a0 \'a0 \'a0 \'a0 - ENDER_CHEST\
+\'a0 \'a0 \'a0 \'a0 - GLOWSTONE\
+\'a0 \'a0 \'a0 \'a0 - LADDER\
+\'a0 \'a0 \'a0 \'a0 - STONE_PLATE\
+\'a0 \'a0 \'a0 \'a0 - "STAINED_GLASS:11"\
+\'a0 \'a0 Disk:\
+       alias: "&aCircle"\
+      price: 10\
+\'a0 \'a0  \'a0 max: 5\
+\'a0 \'a0 \'a0 invalid_in_world:\
+\'a0 \'a0 \'a0 \'a0 - plotworld\
+\'a0 \'a0 \'a0 pickup: true\
+\'a0 \'a0 \'a0 smelt: true\
+\'a0 \'a0 \'a0 effect: true\
+\'a0 \'a0 \'a0 sound: true\
+\'a0 \'a0 \'a0 occurrence: always\
+\'a0 \'a0 \'a0 exemptions:\
+\'a0 \'a0 \'a0 \'a0 - ENDER_CHEST\
+\'a0 \'a0 \'a0 \'a0 - GLOWSTONE\
+\'a0 \'a0 \'a0 \'a0 - LADDER\
+\'a0 \'a0 \'a0 \'a0 - STONE_PLATE\
+\'a0 \'a0 \'a0 \'a0 - "STAINED_GLASS:11"\
+\'a0 \'a0 Tile:\
+      alias: "&aSquare"\
+\'a0 \'a0 \'a0 price: 10\
+\'a0 \'a0  \'a0 max: 5\
+\'a0 \'a0 \'a0 invalid_in_world:\
+\'a0 \'a0 \'a0 \'a0 - plotworld\
+\'a0 \'a0 \'a0 pickup: true\
+\'a0 \'a0 \'a0 smelt: true\
+\'a0 \'a0 \'a0 effect: true\
+\'a0 \'a0 \'a0 sound: true\
+\'a0 \'a0 \'a0 occurrence: always\
+\'a0 \'a0 \'a0 exemptions:\
+\'a0 \'a0 \'a0 \'a0 - ENDER_CHEST\
+\'a0 \'a0 \'a0 \'a0 - GLOWSTONE\
+\'a0 \'a0 \'a0 \'a0 - LADDER\
+\'a0 \'a0 \'a0 \'a0 - STONE_PLATE\
+\'a0 \'a0 \'a0 \'a0 - "STAINED_GLASS:11"\
+    BedrockBreaker:\
+      price: 10\
+      max: 5\
+      top_protected_layers: 3\
+      bottom_protected_layers: 3\
+      occurrence: always # you can set it to random as well.\
+    MineBuddy:\
+      price: 10\
+      max: 1\
+      occurrence: always\
+      no_player_msg : "&a[TE] No such player (%player%)."\
+      no_buddy_msg :  "&a[TE] You don't have a mine buddy."\
+      your_buddy_msg: "&a[TE] Your mine buddy is %player%."\
+      removed_buddy_msg: "&a[TE] You de-registered your mine buddy."\
+      sent_to_buddy_msg: "&a[TE] %item% has been sent to %player%"\
+      accepted_msg: "&a[TE] %requestee% accepted the mine buddy request from %requester%."\
+      no_request_found_msg: "&a[TE] Mine buddy request from %player% was not found."\
+      request_sent_msg: "&a[TE] Your mine buddy request has been sent to %player%."\
+      requested_msg: "&a[TE] You've received a mine buddy request from %player%."   \
+    LuckyMining:\
+      price: 10\
+      max: 2    #this number should be same as the highest level in levels: section\
+      occurrence: always\
+      effect: MOBSPAWNER_FLAMES\
+      sound: ENTITY_LIGHTNING_THUNDER  # for pre 1.9 ...AMBIENCE_THUNDER\
+      levels:\
+        1:\
+          chance: 0.10  # 10% chance!\
+          # '!' -> console, '>' -> op, '@' -> player\
+          commands:\
+            - "!tokenenchant add %player% 3;tm amsg %player% &aLucky Block! <nl>&\\\
+aYou received 3 tokens!"\
+            - "!tokenenchant add %player% 1;tm amsg %player% &aLucky Block! <nl>&\\\
+aYou received one token!"\
+            - "!tokenenchant add %player% 5;tm amsg %player% &aLucky Block! <nl>&\\\
+aYou received 5 token!"\
+        2:\
+          chance: 0.02  # 2% chance!\
+          commands:\
+            - "tokenenchant add %player% 10;tm amsg %player% &aLucky Block! <nl>\\\
+&aYou received 5 token!"\
+            - "tokenenchant add %player% 50;tm amsg %player% &aLucky Block! <nl>\\\
+&aYou received 5 token!"\
+      exemptions:  # needs to be Bukkit's Material type in CAPs.\
+        - GRASS\
+        - SAND\
+    Freedom:\
+      price: 10\
+      max: 10\
+      effect: STAR\
+      color: 4\
+      flicker: true\
+      trail: true\
+      occurrence: always\
+   MiningFlame:\
+      price: 10\
+      max: 1\
+      multiplier: 1 # duration = level * multiplier second\
+      occurrence: always \
+    AutoBlocking:\
+      price: 10\
+      max: 1\
+      occurrence: always\
+      resource_mapping:\
+        CLAY_BALL:\
+          num: 4\
+          target: CLAY\
+        DIAMOND:\
+          num: 9\
+          target: DIAMOND_BLOCK\
+        GOLD_INGOT:\
+          num: 9\
+          target: GOLD_BLOCK\
+        IRON_INGOT:\
+          num: 9\
+          target: IRON_BLOCK\
+        EMERALD:\
+          num: 9\
+          target: EMERALD_BLOCK\
+        REDSTONE:\
+          num: 9\
+          target: REDSTONE_BLOCK\
+        INK_SACK:\
+          data: 4\
+          num: 9\
+          target: LAPIS_BLOCK\
+        COAL:\
+          num: 9\
+          target: COAL_BLOCK\
+    OreSeeker:\
+      price: 10\
+      max: 1  # the level of Explosive will be used as the radius of explosion.\
+      radius_multiplier: 2. #radius = level * radius_multiplier\
+      # you can nominate the world, which prevents explosive\
+      invalid_in_world:\
+        - plotworld\
+      # you can turn on/off explostion sound/visual effects\
+      effect: true\
+      # you can turn on/off explostion sound effects\
+      sound: true\
+      # You can set the occurrence of explosion.\
+      # random: randomly occur based on the level\
+      # always: explosion occur always.\
+      occurrence: always\
+    Fly:\
+      price: 10\
+      max: 1\
+#      invalid_in_region:\
+#        - nofly\
+      occurrence: always\
+#\
+# Supported Enchantment:\
+# Sharpness (Bukkit name: DAMAGE_ALL)\
+# Baneofarthropods (Bukkit name: DAMAGE_ARTHROPODS)\
+# Smite (Bukkit name: DAMAGE_UNDEAD)\
+# Efficiency (Bukkit name: DIG_SPEED)\
+# Unbreaking (Bukkit name: DURABILITY)\
+# Fireaspect (Bukkit name: FIRE_ASPECT)\
+# Knockback (Bukkit name: KNOCKBACK)\
+# Fortune (Bukkit name: LOOT_BONUS_BLOCKS)\
+# Looting (Bukkit name: LOOT_BONUS_MOBS)\
+# Respiration (Bukkit name: OXYGEN\
+# Protection (Bukkit name: PROTECTION_ENVIRONMENTAL)\
+# Blastprotection (Bukkit name: PROTECTION_EXPLOSIONS)\
+# Featherfall (Bukkit name: PROTECTION_FALL)\
+# Fireprotection (Bukkit name: PROTECTION_FIRE)\
+# Projectileprot (Bukkit name: PROTECTION_PROJECTILE)\
+# Silktouch (Bukkit name: SILK_TOUCH)\
+# Aquaaffinity (Bukkit name: WATER_WORKER)\
+# Flame (Bukkit name: ARROW_FIRE)\
+# Power (Bukkit name: ARROW_DAMAGE)\
+# Punch (Bukkit name: ARROW_KNOCKBACK)\
+# Infinity (Bukkit name: ARROW_INFINITE)\
+# Thorns (Bukkit name: THORNS)\
+#\
+Enchants:\
+    Sharpness:\
+      price: 10\
+      max: 10\
+    Baneofarthropods:\
+      price: 10\
+      max: 10\
+    Smite:\
+      price: 10\
+      max: 10\
+    Efficiency:\
+      price: 10\
+      max: 10\
+    Unbreaking:\
+      price: 10\
+      max: 10\
+    Fireaspect:\
+      price: 10\
+      max: 10\
+    Knockback:\
+      price: 10\
+      max: 10\
+    Fortune:\
+      price: 10\
+      max: 10\
+    Looting:\
+      price: 10\
+      max: 10\
+    Respiration:\
+      price: 10\
+      max: 10\
+    Protection:\
+      price: 10\
+      max: 10\
+    Blastprotection:\
+      price: 10\
+      max: 10\
+    Featherfall:\
+      price: 10\
+      max: 10\
+    Fireprotection:\
+      price: 10\
+      max: 10\
+    Projectileprot:\
+      price: 10\
+      max: 10\
+    Silktouch:\
+      price: 10\
+      max: 10\
+    Aquaaffinity:\
+      price: 10\
+      max: 10\
+    Flame:\
+      price: 10\
+      max: 10\
+    Power:\
+      price: 10\
+      max: 10\
+    Punch:\
+      price: 10\
+      max: 10\
+    Infinity:\
+      price: 10\
+      max: 10\
+    Thorns:\
+      price: 10\
+      max: 10\
+\
+Conflicts:\
+    1:\
+      - Explosive\
+      - Excavation\
+      - Sphered\
+      - Disk\
+      - Tile\
+    2:\
+      - Silktouch\
+      - Fortune\
+\
+# list of items players are allowed to enchant\
+Items:\
+    DIAMOND_PICKAXE:\
+        - Efficiency\
+        - Unbreaking\
+        - Fortune\
+        - Haste\
+        - Speed\
+        - Nightvision\
+        - Jump\
+        - Regeneration\
+        - FireResistance\
+        - DamageResistance\
+        - HealthBoost\
+        - Saturation\
+        - Fly\
+        - Explosive\
+        - Excavation\
+        - Sphered\
+        - BedrockBreaker\
+        - Disk\
+        - Tile\
+        - MineBuddy\
+        - LuckyMining\
+        - Freedom\
+        - Flame\
+        - AutoSell\
+        - AutoBlocking\
+        - OreSeeker\
+     GOLDEN_PICKAXE:\
+        - Efficiency\
+        - Unbreaking\
+        - Fortune\
+        - Haste\
+        - Speed\
+        - Nightvision\
+        - Jump\
+        - Regeneration\
+        - FireResistance\
+        - DamageResistance\
+        - HealthBoost\
+        - Saturation\
+        - Fly\
+        - Explosive\
+        - Excavation\
+        - Sphered\
+        - BedrockBreaker\
+        - Disk\
+        - Tile\
+        - MineBuddy\
+        - LuckyMining\
+        - Freedom\
+        - Flame\
+        - AutoSell\
+        - AutoBlocking\
+        - OreSeeker\
+    WOODEN_PICKAXE:\
+        - Efficiency\
+        - Unbreaking\
+        - Fortune\
+        - Haste\
+        - Speed\
+        - Nightvision\
+        - Jump\
+        - Regeneration\
+        - FireResistance\
+        - DamageResistance\
+        - HealthBoost\
+        - Saturation\
+        - Fly\
+        - Explosive\
+        - Excavation\
+        - Sphered\
+        - BedrockBreaker\
+        - Disk\
+        - Tile\
+        - MineBuddy\
+        - LuckyMining\
+        - Freedom\
+        - Flame\
+        - AutoSell\
+        - AutoBlocking\
+        - OreSeeker\
+    STONE_PICKAXE:\
+        - Efficiency\
+        - Unbreaking\
+        - Fortune\
+        - Haste\
+        - Speed\
+        - Nightvision\
+        - Jump\
+        - Regeneration\
+        - FireResistance\
+        - DamageResistance\
+        - HealthBoost\
+        - Saturation\
+        - Fly\
+        - Explosive\
+        - Excavation\
+        - Sphered\
+        - BedrockBreaker\
+        - Disk\
+        - Tile\
+        - MineBuddy\
+        - LuckyMining\
+        - Freedom\
+        - Flame\
+        - AutoSell\
+        - AutoBlocking\
+        - OreSeeker\
+    IRON_PICKAXE:\
+        - Efficiency\
+        - Unbreaking\
+        - Fortune\
+        - Haste\
+        - Speed\
+        - Nightvision\
+        - Jump\
+        - Regeneration\
+        - FireResistance\
+        - DamageResistance\
+        - HealthBoost\
+        - Saturation\
+        - Fly\
+        - Explosive\
+        - Excavation\
+        - Sphered\
+        - BedrockBreaker\
+        - Disk\
+        - Tile\
+        - MineBuddy\
+        - LuckyMining\
+        - Freedom\
+        - Flame\
+        - AutoSell\
+        - AutoBlocking\
+        - OreSeeker\
+\
+\
+}
