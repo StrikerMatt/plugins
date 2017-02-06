@@ -4,7 +4,7 @@
 {\*\expandedcolortbl;;\cssrgb\c27059\c27059\c27059;}
 \paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
 \deftab560
-\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\pard\pardeftab560\slleading20\partightenfactor0
 
 \f0\fs24 \cf2 # This is a template config file\
 # define your parameter and its value like:\
@@ -346,6 +346,7 @@ Potions:\
       # always: occur always.\
       occurrence: random\
       enchant_chance: 0.8\
+\
     Speed:\
       price: 10\
       max: 10\
@@ -353,6 +354,7 @@ Potions:\
       # random: randomly occur based on the level\
       # always: occur always.\
       occurrence: random\
+\
     Nightvision:\
       price: 10\
       max: 10\
@@ -360,6 +362,7 @@ Potions:\
       # random: randomly occur based on the level\
       # always: occur always.\
       occurrence: random\
+\
     Jump:\
       price: 10\
       max: 10\
@@ -367,6 +370,7 @@ Potions:\
       # random: randomly occur based on the level\
       # always: occur always.\
       occurrence: random\
+\
     Harm:\
       price: 10\
       max: 1\
@@ -378,6 +382,7 @@ Potions:\
       # random: randomly occur based on the level\
       # always: occur always.\
       occurrence: always\
+\
     Regeneration:\
       price: 10\
       max: 2\
@@ -387,11 +392,13 @@ Potions:\
       # random: randomly occur based on the level\
       # always: occur always.\
       occurrence: always\
+\
     FireProtection:\
       price: 10\
       max: 1\
       duration_multiplier: 1800\
       occurrence: always\
+\
     Strength:\
       price: 10\
       max: 3\
@@ -412,7 +419,6 @@ Potions:\
       max: 3\
       duration_multiplier: 1200\
       occurrence: always\
-\
     Explosive:\
       price: 10\
       max: 5  # the level of Explosive will be used as the radius of explosion.\
@@ -442,72 +448,43 @@ Potions:\
       # the level of Explosive will be used as the radius of excavation.\
       max: 10\
       # you can nominate the world, which prevents explosive\
-      invalid_in_world:\
-        - plotworld\
       pickup: true\
       smelt: true\
       effect: true\
       sound: true\
       occurrence: random\
-      # You can set the list of blocks exempt from explosiont.\
-      # use this list to avoid your crates being exploded.\
-      # AIR and BEDROCK are already exempted by defalt\
-      exemptions:\
+    Sphered:\
+\'a0 \'a0 \'a0 price: 10\
+\'a0 \'a0  \'a0max: 3\
+\'a0 \'a0 \'a0 pickup: true\
+\'a0 \'a0 \'a0 smelt: true\
+\'a0 \'a0 \'a0 effect: true\
+\'a0 \'a0 \'a0 sound: true\
+\'a0 \'a0 \'a0 occurrence: always\
+    Disk:\
+      alias: "&aCircle"\
+      price: 10\
+\'a0 \'a0  \'a0max: 5\
+\'a0 \'a0 \'a0 pickup: true\
+\'a0 \'a0 \'a0 smelt: true\
+\'a0 \'a0 \'a0 effect: true\
+\'a0 \'a0 \'a0 sound: true\
+\'a0 \'a0 \'a0 occurrence: always\
+    Tile:\
+      alias: "&aSquare"\
+\'a0 \'a0 \'a0 price: 10\
+\'a0 \'a0  \'a0max: 5\
+\'a0 \'a0 \'a0 pickup: true\
+\'a0 \'a0 \'a0 smelt: true\
+\'a0 \'a0 \'a0 effect: true\
+\'a0 \'a0 \'a0 sound: true\
+\'a0 \'a0 \'a0 occurrence: always\
+\'a0 \'a0 \'a0 exemptions:\
         - ENDER_CHEST\
         - GLOWSTONE\
         - LADDER\
         - STONE_PLATE\
         - "STAINED_GLASS:11"\
-\'a0 \'a0 Sphered:\
-\'a0 \'a0 \'a0 price: 10\
-\'a0 \'a0  \'a0 max: 3\
-\'a0 \'a0 \'a0 invalid_in_world:\
-\'a0 \'a0 \'a0 \'a0 - plotworld\
-\'a0 \'a0 \'a0 pickup: true\
-\'a0 \'a0 \'a0 smelt: true\
-\'a0 \'a0 \'a0 effect: true\
-\'a0 \'a0 \'a0 sound: true\
-\'a0 \'a0 \'a0 occurrence: always\
-\'a0 \'a0 \'a0 exemptions:\
-\'a0 \'a0 \'a0 \'a0 - ENDER_CHEST\
-\'a0 \'a0 \'a0 \'a0 - GLOWSTONE\
-\'a0 \'a0 \'a0 \'a0 - LADDER\
-\'a0 \'a0 \'a0 \'a0 - STONE_PLATE\
-\'a0 \'a0 \'a0 \'a0 - "STAINED_GLASS:11"\
-\'a0 \'a0 Disk:\
-       alias: "&aCircle"\
-      price: 10\
-\'a0 \'a0  \'a0 max: 5\
-\'a0 \'a0 \'a0 invalid_in_world:\
-\'a0 \'a0 \'a0 \'a0 - plotworld\
-\'a0 \'a0 \'a0 pickup: true\
-\'a0 \'a0 \'a0 smelt: true\
-\'a0 \'a0 \'a0 effect: true\
-\'a0 \'a0 \'a0 sound: true\
-\'a0 \'a0 \'a0 occurrence: always\
-\'a0 \'a0 \'a0 exemptions:\
-\'a0 \'a0 \'a0 \'a0 - ENDER_CHEST\
-\'a0 \'a0 \'a0 \'a0 - GLOWSTONE\
-\'a0 \'a0 \'a0 \'a0 - LADDER\
-\'a0 \'a0 \'a0 \'a0 - STONE_PLATE\
-\'a0 \'a0 \'a0 \'a0 - "STAINED_GLASS:11"\
-\'a0 \'a0 Tile:\
-      alias: "&aSquare"\
-\'a0 \'a0 \'a0 price: 10\
-\'a0 \'a0  \'a0 max: 5\
-\'a0 \'a0 \'a0 invalid_in_world:\
-\'a0 \'a0 \'a0 \'a0 - plotworld\
-\'a0 \'a0 \'a0 pickup: true\
-\'a0 \'a0 \'a0 smelt: true\
-\'a0 \'a0 \'a0 effect: true\
-\'a0 \'a0 \'a0 sound: true\
-\'a0 \'a0 \'a0 occurrence: always\
-\'a0 \'a0 \'a0 exemptions:\
-\'a0 \'a0 \'a0 \'a0 - ENDER_CHEST\
-\'a0 \'a0 \'a0 \'a0 - GLOWSTONE\
-\'a0 \'a0 \'a0 \'a0 - LADDER\
-\'a0 \'a0 \'a0 \'a0 - STONE_PLATE\
-\'a0 \'a0 \'a0 \'a0 - "STAINED_GLASS:11"\
     BedrockBreaker:\
       price: 10\
       max: 5\
@@ -562,7 +539,7 @@ aYou received 5 token!"\
       flicker: true\
       trail: true\
       occurrence: always\
-   MiningFlame:\
+    MiningFlame:\
       price: 10\
       max: 1\
       multiplier: 1 # duration = level * multiplier second\
@@ -615,8 +592,8 @@ aYou received 5 token!"\
     Fly:\
       price: 10\
       max: 1\
-#      invalid_in_region:\
-#        - nofly\
+      invalid_in_region:\
+        - nofly\
       occurrence: always\
 #\
 # Supported Enchantment:\
@@ -724,7 +701,7 @@ Conflicts:\
 \
 # list of items players are allowed to enchant\
 Items:\
-    DIAMOND_PICKAXE:\
+DIAMOND_PICKAXE:\
         - Efficiency\
         - Unbreaking\
         - Fortune\
@@ -751,7 +728,7 @@ Items:\
         - AutoSell\
         - AutoBlocking\
         - OreSeeker\
-     GOLDEN_PICKAXE:\
+GOLDEN_PICKAXE:\
         - Efficiency\
         - Unbreaking\
         - Fortune\
@@ -778,7 +755,7 @@ Items:\
         - AutoSell\
         - AutoBlocking\
         - OreSeeker\
-    WOODEN_PICKAXE:\
+WOODEN_PICKAXE:\
         - Efficiency\
         - Unbreaking\
         - Fortune\
@@ -805,7 +782,7 @@ Items:\
         - AutoSell\
         - AutoBlocking\
         - OreSeeker\
-    STONE_PICKAXE:\
+STONE_PICKAXE:\
         - Efficiency\
         - Unbreaking\
         - Fortune\
@@ -832,7 +809,7 @@ Items:\
         - AutoSell\
         - AutoBlocking\
         - OreSeeker\
-    IRON_PICKAXE:\
+IRON_PICKAXE:\
         - Efficiency\
         - Unbreaking\
         - Fortune\
@@ -859,6 +836,5 @@ Items:\
         - AutoSell\
         - AutoBlocking\
         - OreSeeker\
-\
 \
 }
